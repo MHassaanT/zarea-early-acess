@@ -252,15 +252,16 @@
             btnSpinner.style.display = 'inline-block';
             
             const formData = new FormData(form);
+            const data = Object.fromEntries(formData.entries());
             
             try {
-                // Sending as FormData (multipart/form-data) is often more compatible with 
-                // Make.com's initial data structure detection.
-                const response = await fetch('https://hook.eu2.make.com/fl0kwb6g4yjbwzena5wd99vqoykgylaq', {
+                // Reverting to JSON with a trailing slash, which is sometimes required by the eu2 region.
+                const response = await fetch('https://hook.eu2.make.com/fl0kwb6g4yjbwzena5wd99vqoykgylaq/', {
                     method: 'POST',
-                    body: formData,
-                    // Note: We don't set Content-Type header manually, 
-                    // the browser will set it with the correct boundary for multipart/form-data.
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data),
                 });
 
                 if (response.ok) {
@@ -271,11 +272,17 @@
                 } else {
                     const errorText = await response.text();
                     console.error('Webhook Error:', response.status, errorText);
-                    alert(`Submission failed (Status ${response.status}). Please ensure your Make.com scenario is ON and the webhook is active.`);
+                    if (response.status === 401) {
+                        alert('Error 401: Unauthorized. In Make.com, please check "Advanced settings" to ensure no API Key is required, and make sure your Scenario is toggled to ON.');
+                    } else if (response.status === 404) {
+                        alert('Error 404: Not Found. Please double-check that your Webhook URL is still active in Make.com.');
+                    } else {
+                        alert(`Submission failed (Status ${response.status}). Please check your Make.com scenario.`);
+                    }
                 }
             } catch (error) {
                 console.error('Network Error:', error);
-                alert('A network error occurred. Please check your internet connection and cross-origin (CORS) settings.');
+                alert('A network error occurred. This could be due to CORS restrictions. Please ensure your Make.com Webhook is in "Listening" mode.');
             } finally {
                 btnText.style.display = 'inline-block';
                 btnSpinner.style.display = 'none';
