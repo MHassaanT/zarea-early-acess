@@ -472,3 +472,121 @@ input:focus, select:focus {
     font-size: 18px;
     margin-bottom: 32px;
 }
+
+/* --- Mailchimp Form Overrides --- */
+#mc_embed_signup {
+    background: transparent !important;
+    color: var(--text-main);
+    width: 100% !important;
+    font-family: 'Inter', sans-serif !important;
+}
+
+#mc_embed_signup form {
+    padding: 0 !important;
+}
+
+#mc_embed_signup h2 {
+    font-family: 'Outfit', sans-serif !important;
+    font-size: 32px !important;
+    margin-bottom: 12px !important;
+    text-align: center;
+}
+
+#mc_embed_signup .indicates-required {
+    text-align: right;
+    color: var(--text-muted);
+    font-size: 12px;
+    margin-bottom: 20px;
+}
+
+#mc_embed_signup .mc-field-group {
+    width: 100% !important;
+    padding-bottom: 20px !important;
+    min-height: auto !important;
+}
+
+#mc_embed_signup label {
+    color: var(--text-muted) !important;
+    font-weight: 600 !important;
+    margin-bottom: 8px !important;
+    display: block !important;
+}
+
+#mc_embed_signup input {
+    background: rgba(15, 23, 42, 0.5) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 12px !important;
+    color: white !important;
+    padding: 14px 20px !important;
+    width: 100% !important;
+    font-size: 15px !important;
+}
+
+#mc_embed_signup input:focus {
+    border-color: var(--primary) !important;
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1) !important;
+    background: rgba(15, 23, 42, 0.8) !important;
+}
+
+#mc_embed_signup select {
+     background: rgba(15, 23, 42, 0.5) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 12px !important;
+    color: white !important;
+    padding: 14px 20px !important;
+    width: 100% !important;
+    font-size: 15px !important;
+}
+
+/* Mailchimp Address Grouping */
+.mc-address-group {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.mc-address-fields-group {
+    grid-column: span 2;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+@media (max-width: 600px) {
+    .mc-address-group, .mc-address-fields-group {
+        grid-template-columns: 1fr;
+    }
+}
+
+#mc_embed_signup .button {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%) !important;
+    height: auto !important;
+    padding: 16px 32px !important;
+    border-radius: 12px !important;
+    font-weight: 700 !important;
+    font-family: 'Outfit', sans-serif !important;
+    font-size: 18px !important;
+    text-transform: none !important;
+    margin: 20px auto !important;
+    display: block !important;
+    width: 100% !important;
+    box-shadow: 0 4px 20px rgba(59, 130, 246, 0.4) !important;
+    transition: var(--transition) !important;
+}
+
+#mc_embed_signup .button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(59, 130, 246, 0.6) !important;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%) !important;
+}
+
+#mc_embed_signup .refferal_badge {
+    filter: invert(1) brightness(2);
+    opacity: 0.5;
+    margin-top: 20px;
+}
+
+/* Fix for Mailchimp's asterisk */
+#mc_embed_signup .asterisk {
+    color: var(--error) !important;
+}
