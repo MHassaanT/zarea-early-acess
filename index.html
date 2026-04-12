@@ -44,12 +44,6 @@
                 </div>
             </div>
             
-            <div class="progress-box">
-                <span class="progress-label"><strong id="spots-count">42</strong> / 100 Spots Claimed</span>
-                <div class="progress-bar-bg">
-                    <div class="progress-bar-fill" id="progress-fill"></div>
-                </div>
-            </div>
         </div>
     </header>
 
@@ -239,16 +233,6 @@
 
         setInterval(updateCountdown, 1000);
         updateCountdown();
-
-        // --- Spots Logic ---
-        let spotsCount = 42;
-        function updateProgress() {
-            const spotsCountEl = document.getElementById('spots-count');
-            if (spotsCountEl) spotsCountEl.innerText = spotsCount;
-            const progressFillEl = document.getElementById('progress-fill');
-            if (progressFillEl) progressFillEl.style.width = spotsCount + '%';
-        }
-        updateProgress();
 
         // --- FAQ Toggle ---
         document.querySelectorAll('.faq-question').forEach(q => {
