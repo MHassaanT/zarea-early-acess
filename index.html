@@ -252,15 +252,15 @@
             btnSpinner.style.display = 'inline-block';
             
             const formData = new FormData(form);
-            const data = Object.fromEntries(formData.entries());
             
             try {
+                // Sending as FormData (multipart/form-data) is often more compatible with 
+                // Make.com's initial data structure detection.
                 const response = await fetch('https://hook.eu2.make.com/fl0kwb6g4yjbwzena5wd99vqoykgylaq', {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(data),
+                    body: formData,
+                    // Note: We don't set Content-Type header manually, 
+                    // the browser will set it with the correct boundary for multipart/form-data.
                 });
 
                 if (response.ok) {
@@ -269,11 +269,13 @@
                     updateProgress();
                     form.reset();
                 } else {
-                    alert('Submission failed. Please try again or contact support.');
+                    const errorText = await response.text();
+                    console.error('Webhook Error:', response.status, errorText);
+                    alert(`Submission failed (Status ${response.status}). Please ensure your Make.com scenario is ON and the webhook is active.`);
                 }
             } catch (error) {
-                console.error('Error:', error);
-                alert('A network error occurred. Please check your connection.');
+                console.error('Network Error:', error);
+                alert('A network error occurred. Please check your internet connection and cross-origin (CORS) settings.');
             } finally {
                 btnText.style.display = 'inline-block';
                 btnSpinner.style.display = 'none';
